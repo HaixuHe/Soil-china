@@ -15,7 +15,7 @@ var Good_mask = fvc.gte(threshold)
 var Bad_mask = fvc.lt(threshold).and(fvc.gt(0))
 var worst_mask = fvc.lte(0)
 
-// 植被管理因子计算
+// Cover management factor
 function C_Bad(img) {
 var fvc = img.select("FVC");
 var c_factor = img.expression(
@@ -31,11 +31,11 @@ var C_Factor = Bad.updateMask(Bad_mask.or(worst_mask)).unmask(0)
 var C_Factor = C_Factor.updateMask(Good_mask.or(Bad_mask)).unmask(1)
 
 
-//  *****降雨侵蚀因子计算
+//  *****Rainfall erosivity factor
 var R_factor = r.select('R').sum().clip(table);
 
 
-//  *****土壤可蚀性因子计算
+//  *****Soil erodibility factor
 var fensha = ee.Image("users/joeyqmf83/fensha_500m"),
     nianli = ee.Image("users/joeyqmf83/nianli_500m"),
     xisha = ee.Image("users/joeyqmf83/xisha_500m"),
@@ -71,7 +71,7 @@ function cal_K(SAN, SIL, CLA, C, SN1) {
 var k_factor = cal_K(SAN, SIL, CLA, C, SN1).multiply(0.1317)
 
 
-//  *****坡度坡长因子计算
+//  *****Slope length and steepness factor
 var roi = table;
 var dataset_dem = ee.Image('USGS/SRTMGL1_003').clip(roi);
 var terrain = ee.Algorithms.Terrain(dataset_dem);
@@ -180,7 +180,7 @@ var m = cal_m(B)
 var LS = cal_LS(L_, m, S)
 
 
-//  *****管理因子计算
+//  *****Support practice factor
 
 var dataset = ee.ImageCollection('MODIS/006/MCD12Q1').filter(ee.Filter.date(year+'-01-01', year+'-12-31'));
 var igbpLandCover = dataset.select('LC_Type1').first().clip(table);
