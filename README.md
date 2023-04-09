@@ -6,4 +6,4 @@ China 2010-2021 Soil Erosion Dataset Production Code Based on RUSLE Model (Runni
 
 ### Dataset access
 
-[https://doi.org/10.5281/zenodo.6881258](https://doi.org/10.5281/zenodo.6881258)
+[https://doi.org/10.5281/zenodo.7811805](https://doi.org/10.5281/zenodo.7811805)
